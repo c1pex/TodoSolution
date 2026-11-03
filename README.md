@@ -2,7 +2,7 @@
 
 [![CI / Build & Test](https://github.com/c1pex/TodoSolution/actions/workflows/ci.yml/badge.svg)](https://github.com/c1pex/TodoSolution/actions/workflows/ci.yml)
 
-Simple Todo core library (for practice). Библиотека для управления списком задач (ToDo) на платформе .NET 8.
+Simple Todo core library (for practice). Библиотека для управления списком задач (ToDo) на платформе .NET 8 с поддержкой персистентности в JSON.
 
 ## Подключение пакета через NuGet (GitHub Packages)
 
@@ -27,8 +27,10 @@ dotnet nuget add source "https://nuget.pkg.github.com/c1pex/index.json" --name g
 ### 2. Установка пакета в проект
 
 ```bash
-dotnet add package Todo.Core --version 0.1.0
+dotnet add package Todo.Core --version 0.2.0
 ```
+
+*(или версия `0.1.0`)*
 
 ## Пример использования
 
@@ -53,6 +55,13 @@ foreach (var item in searchResults)
     Console.WriteLine($"[{(item.IsDone ? "X" : " ")}] {item.Title} (ID: {item.Id})");
 }
 
+// Сохранение списка в JSON-файл
+todoList.Save("todos.json");
+
+// Загрузка списка из JSON-файла
+var restoredList = new TodoList();
+restoredList.Load("todos.json");
+
 // Удаление задачи по идентификатору
-todoList.Remove(item2.Id);
+restoredList.Remove(item2.Id);
 ```
